@@ -1,0 +1,317 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Main Container */
+.container {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* 全屏内容模式 - 当密码正确后应用 */
+.container.content-fullscreen {
+    max-width: 100%;
+    max-height: 100vh;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #121212;
+    box-shadow: none;
+    border-radius: 0;
+    position: relative;
+}
+
+/* 隐藏标题、简介和密码输入框 */
+.container.content-fullscreen h1,
+.container.content-fullscreen .intro,
+.container.content-fullscreen .password-container {
+    display: none;
+}
+
+/* 全屏模式下的内容样式 */
+.container.content-fullscreen .labyrinth-content {
+    flex: 1;
+    max-height: calc(100vh - 80px); /* 为底部按钮留出空间 */
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    font-size: 1.35rem; /* 调大字体 */
+    line-height: 1.8;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    overflow-y: auto;
+}
+
+/* Title Style */
+h1 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* Introduction Style */
+.intro {
+    color: #b0b0b0;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+/* Password Input Container */
+.password-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+label {
+    font-weight: 600;
+    color: #d0d0d0;
+    font-size: 1.1rem;
+    align-self: flex-start;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    transition: border-color 0.3s ease;
+    outline: none;
+}
+
+input[type="password"]:focus {
+    border-color: #5b9bd5;
+    box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.2);
+}
+
+/* Button Style */
+#submit-btn {
+    background-color: #5b9bd5;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+}
+
+#submit-btn:hover {
+    background-color: #4a8bc5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(91, 155, 213, 0.3);
+}
+
+#submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Error Message Style */
+.error-message {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    min-height: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.error-message.show {
+    opacity: 1;
+}
+
+/* Labyrinth Content Container */
+.labyrinth-content {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+    text-align: left;
+    line-height: 1.8;
+    font-size: 1.25rem; /* 调大字体 */
+    color: #e0e0e0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    display: none;
+    backface-visibility: hidden;
+    transform-origin: left center;
+}
+
+.labyrinth-content.show {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Scrollbar Style */
+.labyrinth-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.labyrinth-content::-webkit-scrollbar-track {
+    background: #1e1e1e;
+    border-radius: 4px;
+}
+
+.labyrinth-content::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+.labyrinth-content::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Back Button Style */
+#back-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    margin-top: 0;
+    background-color: #4a4a4a;
+    color: #e0e0e0;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    width: auto;
+}
+
+#back-btn:hover {
+    background-color: #5a5a5a;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 翻书页动画 */
+@keyframes pageTurn {
+    0% {
+        opacity: 1;
+        transform: rotateY(0deg);
+    }
+    50% {
+        opacity: 0.5;
+        transform: rotateY(-50deg) translateX(-20px);
+    }
+    51% {
+        opacity: 0.5;
+        transform: rotateY(50deg) translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: rotateY(0deg);
+    }
+}
+
+.page-turn {
+    animation: pageTurn 1s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .intro {
+        font-size: 1rem;
+    }
+    
+    .labyrinth-content {
+        font-size: 1.1rem;
+        padding: 15px;
+    }
+    
+    .container.content-fullscreen .labyrinth-content {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px 15px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .container.content-fullscreen {
+        padding: 10px;
+    }
+    
+    .container.content-fullscreen .labyrinth-content {
+        padding: 10px;
+        font-size: 1.1rem;
+    }
+}

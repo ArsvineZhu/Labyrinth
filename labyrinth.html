@@ -1,1 +1,27 @@
-Home page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labyrinth</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Labyrinth</h1>
+        <p class="intro">Here is a labyrinth to be uncovered. Enter the correct password to reveal its secrets.</p>
+        
+        <div class="password-container">
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter password">
+            <button id="submit-btn">Enter</button>
+            <p id="error-message" class="error-message"></p>
+        </div>
+        
+        <!-- Container for displaying labyrinth.txt content -->
+        <div id="labyrinth-content" class="labyrinth-content"></div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
